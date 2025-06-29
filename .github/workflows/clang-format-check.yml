@@ -1,0 +1,24 @@
+name: Clang Format Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  clang-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+      - uses: actions/checkout@v4
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      # Runs a set of commands using the runners shell
+      - name: Check formatting
+        run: |
+          FILES=$(find . \( -name "*.cpp" -o -name "*.cc" -o -name "*.c" -o -name "*.h" -o -name "*.hpp" \) -not -path "./build/*")
+          clang-format --dry-run --Werror $FILES
