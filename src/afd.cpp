@@ -1,13 +1,12 @@
-#include <algorithm>
-#include <iostream>   
-#include <fstream>   
-#include <sstream>   
-#include <string>     
-#include <set>        
-#include <map>        
-#include <utility>
 #include "../include/afd.h"
-
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <set>
+#include <sstream>
+#include <string>
+#include <utility>
 
 void Afd::processarPalavra(const std::string& palavra) const {
     std::string estadoAtual = this->estadoInicial;
@@ -37,7 +36,6 @@ void Afd::processarPalavra(const std::string& palavra) const {
     else
         std::cout << "REJEITA\n";
 }
-
 
 // metodo para ler um automato finito deterministico de um arquivo texto
 void Afd::lerDeArquivo(const std::string& nomeArquivo) {
@@ -92,9 +90,9 @@ void Afd::lerDeArquivo(const std::string& nomeArquivo) {
             std::string origem = linha.substr(pos1 + 1, pos2 - pos1 - 1);
             char simbolo = linha[pos2 + 1];
             std::string destino = linha.substr(pos4 + 1);
-            while (destino[0] == ' ') destino.erase(0, 1); 
+            while (destino[0] == ' ') destino.erase(0, 1);
             transicoes[{origem, simbolo}] = destino;
         }
     }
-    estadoInicial = "q0"; 
+    estadoInicial = "q0";
 }
