@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-class AFD {
+class Afd {
    private:
     std::string alfabeto;
     std::set<std::string> estados;
@@ -15,7 +15,7 @@ class AFD {
     std::map<std::pair<std::string, char>, std::string> transicoes;
 
    public:
-    AFD();
+    Afd();
 
     std::string getAlfabeto() const;
     std::set<std::string> getEstados() const;
@@ -23,13 +23,13 @@ class AFD {
     std::set<std::string> getEstadosFinais() const;
     std::map<std::pair<std::string, char>, std::string> getTransicoes() const;
 
-    void setAlfabeto(const std::string& novoAlfabeto);
-    void setEstados(const std::set<std::string>& novosEstados);
-    void setEstadoInicial(const std::string& novoEstadoInicial);
-    void setTransicoes(const std::map<std::pair<std::string, char>, std::string>& novasTransicoes);
+    void setAlfabeto(const std::string& alfabeto);
+    void setEstados(const std::set<std::string>& estados);
+    void setEstadoInicial(const std::string& estadoInicial);
+    void setTransicoes(const std::map<std::pair<std::string, char>, std::string>& transicoes);
 
-    void carregarDeArquivo(const std::string& nomeArquivo);
-    bool processarPalavra(const std::string& palavra);
+    void lerDeArquivo(const std::string& nomeArquivo);
+    void processarPalavra(const std::string& palavra) const;
     class GR converterParaGR() const;
 };
 

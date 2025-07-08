@@ -6,27 +6,27 @@
 #include <string>
 #include <vector>
 
-class GR {
+class Gr {
    private:
-    std::set<std::string> naoTerminais;
+    std::string naoTerminais;
     std::string terminais;
     char simboloInicial;
-    std::map<std::string, std::vector<std::string>> producoes;
+    std::map<char, std::set<std::string>> producoes;
 
    public:
-    GR();
+    Gr();
 
-    std::set<std::string> getNaoTerminais() const;
+    std::string getNaoTerminais() const;
     std::string getTerminais() const;
     char getSimboloInicial() const;
-    std::map<std::string, std::vector<std::string>> getProducoes() const;
+    std::map<char, std::set<std::string>> getProducoes() const;
 
-    void setNaoTerminais(const std::set<std::string>& novosNaoTerminais);
-    void setTerminais(const std::string& novosTerminais);
-    void setSimboloInicial(char novoSimboloInicial);
-    void setProducoes(const std::map<std::string, std::vector<std::string>>& novasProducoes);
+    void setNaoTerminais(const std::string& naoTerminais);
+    void setTerminais(const std::string& terminais);
+    void setSimboloInicial(const char simboloInicial);
+    void setProducoes(const std::map<std::string, std::set<std::string>>& producoes);
 
-    void imprimirGramatica() const;
+    void imprimirGR() const;
 };
 
 #endif  // GR_H
