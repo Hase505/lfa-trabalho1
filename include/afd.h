@@ -14,8 +14,11 @@ class Afd {
     std::set<std::string> estadosFinais;
     std::map<std::pair<std::string, char>, std::string> transicoes;
 
+    void imprimirPasso(const std::string& estado, const std::string& palavra) const;
+    void imprimirResultado(bool resultado) const;
+
    public:
-    Afd();
+    Afd() = default;
 
     std::string getAlfabeto() const;
     std::set<std::string> getEstados() const;
