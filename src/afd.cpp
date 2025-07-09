@@ -1,5 +1,5 @@
 #include "../include/afd.h"
-#include <algorithm>
+
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -8,36 +8,40 @@
 #include <string>
 #include <utility>
 
+void Afd::imprimirPasso(const std::string& estado, const std::string& palavra) const {
+    std::cout << '[' << estado << ']' << palavra << "\n";
+}
+
+void Afd::imprimirResultado(bool resultado) const {
+    std::cout << (resultado ? "ACEITA" : "REJEITA") << '\n';
+}
+
 void Afd::processarPalavra(const std::string& palavra) const {
     std::string estadoAtual = this->estadoInicial;
 
-    for (int i = 0; i <= palavra.length(); i++) {
-        // Se for símbolo vazio, subpalavra armazena "@"
-        std::string subpalavra = (i < palavra.length()) ? palavra.substr(i) : "@";
-
-        // Imprime o estado atual e o restante da palavra a ser processada
-        std::cout << '[' << estadoAtual << ']' << subpalavra << "\n";
-
-        if (i < palavra.length()) {
-            // Verifica se há uma transição válida, dado o estado e o símbolo atuais
-            auto chave = std::make_pair(estadoAtual, palavra[i]);
-            if (transicoes.find(chave) == transicoes.end()) {
-                std::cout << "REJEITA\n";
-                break;
-            }
-
-            estadoAtual = transicoes.at(chave);
-        }
+    // Caso especial: palavra vazia
+    if (palavra.empty()) {
+        imprimirPasso(estadoAtual, "@");
+        imprimirResultado(estadosFinais.count(estadoAtual) > 0);
+        return;
     }
 
-    // Verifica se o estado final encontrado está no conjunto de aceitação
-    if (estadosFinais.count(estadoAtual) > 0)
-        std::cout << "ACEITA\n";
-    else
-        std::cout << "REJEITA\n";
+    for (size_t i = 0; i < palavra.length(); i++) {
+        imprimirPasso(estadoAtual, palavra.substr(i));
+
+        // Verifica se há uma transição válida, dado o estado e o símbolo atuais
+        auto chave = std::make_pair(estadoAtual, palavra[i]);
+        if (transicoes.find(chave) == transicoes.end()) {
+            imprimirResultado(false);
+            return;
+        }
+        estadoAtual = transicoes.at(chave);
+    }
+
+    imprimirPasso(estadoAtual, "");
+    imprimirResultado(estadosFinais.count(estadoAtual) > 0);
 }
 
-// metodo para ler um automato finito deterministico de um arquivo texto
 void Afd::lerDeArquivo(const std::string& nomeArquivo) {
     std::ifstream arquivo(nomeArquivo);
 
