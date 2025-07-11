@@ -12,40 +12,41 @@ using namespace std;
 GR AFD::converterParaGR() const {
     GR gramatica;
 
-    gramatica.setNaoTerminais(estados);
-    gramatica.setTerminais(alfabeto);
+    map<string, string> estadoParaNaoTerminal;
+    set<string> naoTerminais;
+    char letra = 'A';
 
-    if (!estadoInicial.empty()) {
-        gramatica.setSimboloInicial(estadoInicial[0]); 
+      for (const auto& estado : estados) {
+        if (estado == estadoInicial) {
+            estadoParaNaoTerminal[estado] = "S"; 
+        } else {
+            if (letra == 'S') letra++;
+            estadoParaNaoTerminal[estado] = string(1, letra++);
+        }
+        naoTerminais.insert(estadoParaNaoTerminal[estado]);
     }
 
+    gramatica.setNaoTerminais(naoTerminais);
+    gramatica.setTerminais(alfabeto);
+    gramatica.setSimboloInicial('S');
+
     map<string, vector<string>> producoes;
+
     for (const auto& transicao : transicoes) {
-        string origem = transicao.first.first;
+        string origem = estadoParaNaoTerminal[transicao.first.first];
         char simbolo = transicao.first.second;
-        string destino = transicao.second;
+        string destino = estadoParaNaoTerminal[transicao.second];
 
         producoes[origem].push_back(string(1, simbolo) + destino);
     }
 
-    for (const auto& estadoFinal : estadosFinais) {
-        producoes[estadoFinal].push_back("@");
+     for (const auto& estadoFinal : estadosFinais) {
+        string naoTerminal = estadoParaNaoTerminal[estadoFinal];
+        producoes[naoTerminal].push_back("@");
     }
 
     gramatica.setProducoes(producoes);
     return gramatica;
 }
 
-void GR::imprimirGramatica() const {
-    cout << "Gramática regular equivalente:\n";
-    for (const auto& par : producoes) {
-        cout << par.first << " -> ";
-        for (size_t i = 0; i < par.second.size(); ++i) {
-            cout << par.second[i];
-            if (i < par.second.size() - 1) {
-                cout << " | ";
-            }
-        }
-        cout << endl;
-    }
-}
+
