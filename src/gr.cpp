@@ -1,10 +1,10 @@
+#include "../include/afd.h"
+#include "../include/gr.h"
+
 #include <iostream>
 #include <map>
 #include <set>
 #include <string>
-
-#include "../include/afd.h"
-#include "../include/gr.h"
 
 Gr Afd::converterParaGR() const {
     Gr gramatica;
