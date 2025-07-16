@@ -1,7 +1,6 @@
 #include "../include/gr.h"
 #include "../include/afd.h"
 
-
 #include <iostream>
 #include <map>
 #include <set>
