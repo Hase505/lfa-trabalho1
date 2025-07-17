@@ -1,4 +1,5 @@
 #include "../include/afd.h"
+#include "../include/gr.h"
 
 #include <fstream>
 #include <iostream>
@@ -99,4 +100,42 @@ void Afd::lerDeArquivo(const std::string& nomeArquivo) {
         }
     }
     estadoInicial = "q0";
+}
+Gr Afd::converterParaGR() const {
+    Gr gramatica;
+
+    std::map<std::string, std::string> estadoParaNaoTerminal;
+    std::set<std::string> naoTerminais;
+    char letra = 'A';
+
+    for (const auto& estado : estados) {
+        if (estado == estadoInicial) {
+            estadoParaNaoTerminal[estado] = "S";
+        } else {
+            if (letra == 'S') letra++;
+            estadoParaNaoTerminal[estado] = std::string(1, letra++);
+        }
+        naoTerminais.insert(estadoParaNaoTerminal[estado]);
+    }
+
+    gramatica.setNaoTerminais(naoTerminais);
+    gramatica.setTerminais(alfabeto);
+    gramatica.setSimboloInicial(std::string(1, 'S'));
+
+    std::map<std::string, std::set<std::string>> producoes;
+
+    for (const auto& transicao : transicoes) {
+        std::string origem = estadoParaNaoTerminal[transicao.first.first];
+        char simbolo = transicao.first.second;
+        std::string destino = estadoParaNaoTerminal[transicao.second];
+        producoes[origem].insert(std::string(1, simbolo) + destino);
+    }
+
+    for (const auto& estadoFinal : estadosFinais) {
+        std::string naoTerminal = estadoParaNaoTerminal[estadoFinal];
+        producoes[naoTerminal].insert("@");
+    }
+
+    gramatica.setProducoes(producoes);
+    return gramatica;
 }
