@@ -52,6 +52,10 @@ void Menu::testarPalavra() {
     std::string palavra;
     std::cout << "Digite a palavra: ";
     std::getline(std::cin, palavra);
+    if (palavra == "@") {
+        palavra.clear();  // Tratar caso especial para palavra vazia
+    }
+
     afd.processarPalavra(palavra);
     pausar();
 }
