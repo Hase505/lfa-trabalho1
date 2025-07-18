@@ -1,5 +1,4 @@
 #include "../include/gr.h"
-#include "../include/afd.h"
 
 #include <iostream>
 #include <map>
@@ -40,4 +39,36 @@ void Gr::imprimirGR() const {
         }
         std::cout << "\n";
     }
+}
+
+std::set<std::string> Gr::getNaoTerminais() const {
+    return naoTerminais;
+}
+
+std::string Gr::getTerminais() const {
+    return terminais;
+}
+
+std::string Gr::getSimboloInicial() const {
+    return simboloInicial;
+}
+
+std::map<std::string, std::set<std::string>> Gr::getProducoes() const {
+    return producoes;
+}
+
+void Gr::setNaoTerminais(const std::set<std::string>& naoTerminais) {
+    this->naoTerminais = naoTerminais;
+}
+
+void Gr::setTerminais(const std::string& terminais) {
+    this->terminais = terminais;
+}
+
+void Gr::setSimboloInicial(const std::string& simboloInicial) {
+    this->simboloInicial = simboloInicial;
+}
+
+void Gr::setProducoes(const std::map<std::string, std::set<std::string>>& producoes) {
+    this->producoes = producoes;
 }

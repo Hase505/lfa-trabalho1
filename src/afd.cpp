@@ -101,6 +101,7 @@ void Afd::lerDeArquivo(const std::string& nomeArquivo) {
     }
     estadoInicial = "q0";
 }
+
 Gr Afd::converterParaGR() const {
     Gr gramatica;
 
@@ -138,4 +139,44 @@ Gr Afd::converterParaGR() const {
 
     gramatica.setProducoes(producoes);
     return gramatica;
+}
+
+std::string Afd::getAlfabeto() const {
+    return alfabeto;
+}
+
+std::set<std::string> Afd::getEstados() const {
+    return estados;
+}
+
+std::string Afd::getEstadoInicial() const {
+    return estadoInicial;
+}
+
+std::set<std::string> Afd::getEstadosFinais() const {
+    return estadosFinais;
+}
+
+std::map<std::pair<std::string, char>, std::string> Afd::getTransicoes() const {
+    return transicoes;
+}
+
+void Afd::setAlfabeto(const std::string& alfabeto) {
+    this->alfabeto = alfabeto;
+}
+
+void Afd::setEstados(const std::set<std::string>& estados) {
+    this->estados = estados;
+}
+
+void Afd::setEstadoInicial(const std::string& estadoInicial) {
+    this->estadoInicial = estadoInicial;
+}
+
+void Afd::setEstadosFinais(const std::set<std::string>& estadosFinais) {
+    this->estadosFinais = estadosFinais;
+}
+
+void Afd::setTransicoes(const std::map<std::pair<std::string, char>, std::string>& transicoes) {
+    this->transicoes = transicoes;
 }
