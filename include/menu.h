@@ -15,8 +15,6 @@ class Menu {
     void executar();
 
    private:
-    void inicializarTela();
-    void finalizarTela();
     void mostrarMenu() const;
     void testarPalavra();
     int lerOpcao() const;
