@@ -13,7 +13,7 @@ class Gr {
     std::map<std::string, std::set<std::string>> producoes;
 
    public:
-    Gr();
+    Gr() = default;
 
     std::set<std::string> getNaoTerminais() const;
     std::string getTerminais() const;

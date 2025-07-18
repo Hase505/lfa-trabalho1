@@ -9,6 +9,12 @@
 #include <string>
 #include <utility>
 
+Afd::Afd(const std::string& nomeArquivo) {
+    if (!lerDeArquivo(nomeArquivo)) {
+        throw std::ios_base::failure("Erro ao abrir o arquivo \"" + nomeArquivo + "\"");
+    }
+}
+
 void Afd::imprimirPasso(const std::string& estado, const std::string& palavra) const {
     std::cout << '[' << estado << ']' << palavra << "\n";
 }
@@ -43,8 +49,11 @@ void Afd::processarPalavra(const std::string& palavra) const {
     imprimirResultado(estadosFinais.count(estadoAtual) > 0);
 }
 
-void Afd::lerDeArquivo(const std::string& nomeArquivo) {
+bool Afd::lerDeArquivo(const std::string& nomeArquivo) {
     std::ifstream arquivo(nomeArquivo);
+    if (!arquivo) {
+        return false;
+    }
 
     std::string linha;
     int linhaAtual = 0;
@@ -100,7 +109,10 @@ void Afd::lerDeArquivo(const std::string& nomeArquivo) {
         }
     }
     estadoInicial = "q0";
+
+    return true;
 }
+
 Gr Afd::converterParaGR() const {
     Gr gramatica;
 
@@ -138,4 +150,44 @@ Gr Afd::converterParaGR() const {
 
     gramatica.setProducoes(producoes);
     return gramatica;
+}
+
+std::string Afd::getAlfabeto() const {
+    return alfabeto;
+}
+
+std::set<std::string> Afd::getEstados() const {
+    return estados;
+}
+
+std::string Afd::getEstadoInicial() const {
+    return estadoInicial;
+}
+
+std::set<std::string> Afd::getEstadosFinais() const {
+    return estadosFinais;
+}
+
+std::map<std::pair<std::string, char>, std::string> Afd::getTransicoes() const {
+    return transicoes;
+}
+
+void Afd::setAlfabeto(const std::string& alfabeto) {
+    this->alfabeto = alfabeto;
+}
+
+void Afd::setEstados(const std::set<std::string>& estados) {
+    this->estados = estados;
+}
+
+void Afd::setEstadoInicial(const std::string& estadoInicial) {
+    this->estadoInicial = estadoInicial;
+}
+
+void Afd::setEstadosFinais(const std::set<std::string>& estadosFinais) {
+    this->estadosFinais = estadosFinais;
+}
+
+void Afd::setTransicoes(const std::map<std::pair<std::string, char>, std::string>& transicoes) {
+    this->transicoes = transicoes;
 }
