@@ -43,8 +43,11 @@ void Afd::processarPalavra(const std::string& palavra) const {
     imprimirResultado(estadosFinais.count(estadoAtual) > 0);
 }
 
-void Afd::lerDeArquivo(const std::string& nomeArquivo) {
+bool Afd::lerDeArquivo(const std::string& nomeArquivo) {
     std::ifstream arquivo(nomeArquivo);
+    if (!arquivo) {
+        return false;
+    }
 
     std::string linha;
     int linhaAtual = 0;
@@ -100,6 +103,8 @@ void Afd::lerDeArquivo(const std::string& nomeArquivo) {
         }
     }
     estadoInicial = "q0";
+
+    return true;
 }
 
 Gr Afd::converterParaGR() const {

@@ -32,7 +32,7 @@ class Afd {
     void setEstadosFinais(const std::set<std::string>& estadosFinais);
     void setTransicoes(const std::map<std::pair<std::string, char>, std::string>& transicoes);
 
-    void lerDeArquivo(const std::string& nomeArquivo);
+    bool lerDeArquivo(const std::string& nomeArquivo);
     void processarPalavra(const std::string& palavra) const;
     class Gr converterParaGR() const;
 };
