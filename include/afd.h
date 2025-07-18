@@ -19,6 +19,7 @@ class Afd {
 
    public:
     Afd() = default;
+    Afd(const std::string& nomeArquivo);
 
     std::string getAlfabeto() const;
     std::set<std::string> getEstados() const;

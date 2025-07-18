@@ -9,6 +9,12 @@
 #include <string>
 #include <utility>
 
+Afd::Afd(const std::string& nomeArquivo) {
+    if (!lerDeArquivo(nomeArquivo)) {
+        throw std::ios_base::failure("Erro ao abrir o arquivo \"" + nomeArquivo + "\"");
+    }
+}
+
 void Afd::imprimirPasso(const std::string& estado, const std::string& palavra) const {
     std::cout << '[' << estado << ']' << palavra << "\n";
 }
